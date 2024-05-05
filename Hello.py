@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly
 import plotly.express as px
 import sys
 import subprocess
@@ -13,7 +14,8 @@ st.set_page_config(page_title='Death Rate Dashboard', layout='wide')
 # Load the data
 @st.cache_data
 def load_data():
-    df = pd.read_csv('Death_rate.csv')
+    # Update the path to where the CSV file is stored
+    df = pd.read_csv('/workspaces/streamlit-dashboard/pages/data/Death_rate.csv')
     # Normalize column names: remove spaces, convert to lowercase
     df.columns = [x.strip().replace(' ', '_').lower() for x in df.columns]
     # Rename 'entity' to 'Country' for better readability
@@ -79,6 +81,7 @@ else:
                                 labels={'unsafe_water_death_rate_per_100k': 'Unsafe water death rates per 100k'},
                                 title="Regional Unsafe Water Death Rate per 100k")
         st.plotly_chart(map_fig, use_container_width=True)
+
 # Feedback # extra step :)
 feedback = st.text_input("Your Feedback")
 if st.button("Submit Feedback"):
